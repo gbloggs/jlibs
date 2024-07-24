@@ -15,4 +15,7 @@
     <name>apt</name>
     <description>Utilities to create Annotation Processor</description>
 
+    <properties>
+        <javaModuleName>in.jlibs.apt</javaModuleName>
+    </properties>
 </project>
