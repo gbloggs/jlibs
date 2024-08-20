@@ -51,6 +51,7 @@ public final class XMLDog{
     public final XPathVariableResolver variableResolver;
     public final XPathFunctionResolver functionResolver;
     private final XPathParser parser;
+    private SAXHandler handler;
 
     public XMLDog(NamespaceContext nsContext){
         this(nsContext, null, null);
@@ -179,7 +180,7 @@ public final class XMLDog{
 
     public void sniff(Event event, InputSource source, XMLReader reader) throws XPathException{
         try{
-            SAXHandler handler = event.getSAXHandler();
+            handler = event.getSAXHandler();
             reader.setContentHandler(handler);
             reader.setProperty(SAXProperties.LEXICAL_HANDLER, handler);
         }catch(Exception ex){
@@ -211,5 +212,9 @@ public final class XMLDog{
         event.setListener(results);
         sniff(event, source);
         return results;
+    }
+
+    public void stopSniffing() {
+        handler.setTerminate(true);
     }
 }
